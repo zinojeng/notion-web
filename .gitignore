@@ -1,0 +1,11 @@
+node_modules/
+dist/
+artifacts/
+.DS_Store
+.env*
+!.env.example
+.claude/settings.local.json
+.codebase-memory/
+*.xcuserstate
+xcuserdata/
+collaboration/private/
