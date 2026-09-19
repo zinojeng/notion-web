@@ -6,6 +6,7 @@
   "description": "Safari-first Notion clipper with focused Facebook capture",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "preview": "node scripts/preview.mjs",
     "test": "node --test tests/*.test.mjs",
     "check": "npm test && npm run build",
     "sessions": "bash scripts/claude-sessions.sh view"

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Notion 剪存</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <header class="app-header">
+        <h1 class="app-title">Notion 剪存</h1>
+        <span class="chip" id="sourceChip" hidden></span>
+        <button type="button" class="btn btn-tertiary" id="settingsButton">設定</button>
+      </header>
+
+      <div class="banner banner-setup" id="setupBanner" hidden role="status">
+        <p>尚未設定 Notion 連線，請先完成設定才能儲存到 Notion。</p>
+        <button type="button" class="btn btn-secondary" id="openOptionsButton">前往設定</button>
+      </div>
+
+      <div class="status-region" id="loadingStatus" role="status" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span>
+        <span id="loadingText">擷取中…</span>
+      </div>
+
+      <div class="banner banner-error" id="errorBanner" hidden role="alert">
+        <p id="errorMessage"></p>
+        <a
+          id="partialLink"
+          class="link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          hidden
+          >查看已建立的部分內容</a
+        >
+        <button type="button" class="btn btn-secondary" id="retryButton">重試</button>
+      </div>
+
+      <form id="clipForm" class="clip-form" hidden>
+        <div class="warnings" id="warningsBox" hidden role="alert">
+          <p class="warnings-title">注意事項</p>
+          <ul id="warningsList"></ul>
+        </div>
+
+        <div class="field">
+          <label for="titleInput">標題</label>
+          <input id="titleInput" name="title" type="text" required aria-describedby="titleCounter" />
+          <span class="field-counter" id="titleCounter" aria-live="polite">0 / 80</span>
+        </div>
+
+        <div class="field">
+          <label for="summaryInput">摘要</label>
+          <textarea
+            id="summaryInput"
+            name="summary"
+            rows="3"
+            aria-describedby="summaryCounter"
+          ></textarea>
+          <span class="field-counter" id="summaryCounter" aria-live="polite">0 / 600</span>
+        </div>
+
+        <div class="field">
+          <label for="urlInput">網址</label>
+          <input id="urlInput" name="url" type="url" required />
+        </div>
+
+        <div class="field">
+          <label for="keywordsInput">關鍵字（以逗號分隔，可編輯）</label>
+          <input id="keywordsInput" name="keywords" type="text" />
+        </div>
+
+        <details class="field original-details">
+          <summary>原始內容（可編輯，儲存至 Notion 頁面內文）</summary>
+          <textarea id="textInput" name="text" rows="8"></textarea>
+        </details>
+
+        <section class="image-section" id="imageSection" hidden aria-label="擷取到的圖片預覽">
+          <p class="field-label">圖片預覽</p>
+          <div class="image-gallery" id="imageGallery"></div>
+        </section>
+
+        <div class="ai-row">
+          <button type="button" class="btn btn-ai" id="aiButton" hidden>
+            使用 AI 產生摘要與關鍵字
+          </button>
+          <span class="ai-status" id="aiStatus" aria-live="polite"></span>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-tertiary" id="recaptureButton">重新擷取</button>
+          <button type="submit" class="btn btn-primary" id="saveButton">儲存到 Notion</button>
+        </div>
+      </form>
+
+      <div class="banner banner-duplicate" id="duplicateBanner" hidden role="status">
+        <p>這個網址先前已經儲存過一次。</p>
+        <a
+          id="duplicateLink"
+          class="link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          >在 Notion 開啟既有頁面</a
+        >
+        <button type="button" class="btn btn-secondary" id="forceSaveButton">
+          仍要建立新頁面
+        </button>
+      </div>
+
+      <div class="banner banner-success" id="successBanner" hidden role="status">
+        <p>已成功儲存到 Notion。</p>
+        <a id="successLink" class="link" href="#" target="_blank" rel="noopener noreferrer"
+          >在 Notion 開啟</a
+        >
+        <button type="button" class="btn btn-secondary" id="saveAnotherButton">再存一筆</button>
+      </div>
+    </div>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

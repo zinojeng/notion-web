@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Notion 剪存 — 設定</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="options-app" id="app">
+      <header class="options-header">
+        <div>
+          <h1 class="options-title">Notion 剪存設定</h1>
+          <p class="options-subtitle">
+            設定 Notion 連線、選擇資料庫並對應欄位，才能從彈出視窗儲存剪存內容。
+          </p>
+        </div>
+      </header>
+
+      <form id="optionsForm" class="options-form">
+        <section class="options-section" aria-labelledby="connectionHeading">
+          <h2 id="connectionHeading">Notion 連線</h2>
+          <p class="options-section-desc">
+            使用 Notion 的內部整合權杖，只有這個擴充功能會用到它，不會傳送給其他服務。
+            <a href="https://www.notion.so/my-integrations" target="_blank" rel="noopener noreferrer"
+              >前往建立 Notion 內部整合</a
+            >。建立後，請到您要儲存的資料庫按右上角「⋯」選單 → Connections，加入這個整合，否則無法讀取或寫入資料。
+          </p>
+
+          <div class="field">
+            <label for="notionTokenInput" id="notionTokenLabel">Notion 內部整合權杖</label>
+            <div class="token-row">
+              <input
+                id="notionTokenInput"
+                name="notionToken"
+                type="password"
+                autocomplete="off"
+                placeholder="ntn_…"
+                aria-describedby="notionTokenHint"
+              />
+              <button type="button" class="btn btn-secondary" id="clearTokenButton">
+                清除
+              </button>
+            </div>
+            <p class="field-hint" id="notionTokenHint">
+              權杖會儲存在瀏覽器的本機儲存空間（storage.local），屬於本機儲存，並非加密保險庫；請勿在共用裝置使用或分享此擴充功能。
+            </p>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-primary" id="connectButton">
+              連線並列出資料來源
+            </button>
+          </div>
+          <p class="status-line" id="connectStatus" role="status" aria-live="polite" hidden></p>
+        </section>
+
+        <section class="options-section" id="sourceSection" hidden aria-labelledby="sourceHeading">
+          <h2 id="sourceHeading">選擇資料庫</h2>
+          <p class="options-section-desc">搜尋並選擇要儲存剪存內容的 Notion 資料庫。</p>
+          <div class="field source-search">
+            <label for="sourceSearch" class="visually-hidden">搜尋資料來源</label>
+            <input id="sourceSearch" type="search" placeholder="搜尋資料庫名稱…" />
+          </div>
+          <ul class="source-list" id="sourceList" aria-label="可選擇的資料來源"></ul>
+        </section>
+
+        <section class="options-section" id="mappingSection" hidden aria-labelledby="mappingHeading">
+          <h2 id="mappingHeading">欄位對應</h2>
+          <p class="options-section-desc">
+            將剪存內容對應到資料庫的實際欄位。系統已依欄位名稱與型別提供建議值，您可依需要調整；未對應的欄位在儲存時會略過。
+          </p>
+          <div class="mapping-table" id="mappingTable"></div>
+        </section>
+
+        <section class="options-section" aria-labelledby="displayHeading">
+          <h2 id="displayHeading">顯示與其他選項</h2>
+          <div class="checkbox-row">
+            <input id="includeImagesInput" type="checkbox" />
+            <label for="includeImagesInput">在彈出視窗預覽擷取到的圖片</label>
+          </div>
+        </section>
+
+        <section class="options-section" aria-labelledby="aiHeading">
+          <h2 id="aiHeading">AI 摘要（選用，預設關閉）</h2>
+          <div class="checkbox-row">
+            <input id="aiEnabledInput" type="checkbox" />
+            <label for="aiEnabledInput">在彈出視窗顯示「使用 AI 產生摘要與關鍵字」按鈕</label>
+          </div>
+
+          <div class="field">
+            <label for="aiKeyInput">AI 服務 API 金鑰</label>
+            <input
+              id="aiKeyInput"
+              name="aiKey"
+              type="password"
+              autocomplete="off"
+              placeholder="sk-…"
+            />
+          </div>
+
+          <div class="field">
+            <label for="aiModelInput">AI 模型名稱</label>
+            <input id="aiModelInput" name="aiModel" type="text" placeholder="claude-haiku-4-5" />
+          </div>
+
+          <p class="privacy-note">
+            隱私說明：只有在彈出視窗中主動按下「使用 AI 產生摘要與關鍵字」按鈕時，才會把當下的標題與原始文字內容傳送給您設定的
+            AI 服務；不會自動傳送，也不會傳送您的 Notion 權杖或其他頁面內容。金鑰只會儲存在本機，不會出現在紀錄或網址列。
+          </p>
+        </section>
+
+        <div class="options-footer">
+          <button type="submit" class="btn btn-primary" id="saveSettingsButton">儲存設定</button>
+        </div>
+        <p class="status-line" id="saveStatus" role="status" aria-live="polite" hidden></p>
+      </form>
+    </div>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

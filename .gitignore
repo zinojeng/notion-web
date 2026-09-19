@@ -6,6 +6,7 @@ artifacts/
 !.env.example
 .claude/settings.local.json
 .codebase-memory/
+.metadata_cache/
 *.xcuserstate
 xcuserdata/
 collaboration/private/
